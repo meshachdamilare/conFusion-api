@@ -219,7 +219,7 @@ dishRouter.route('/:dishId/comments/:commentId')
     Dishes.findById(req.params.dishId)
     .then((dish) => {
         if (dish != null && dish.comments.id(req.params.commentId) != null) {
-             dish.comments.id(req.params.commentId).remove();
+             dish.comments.id(greq.params.commentId).remove();
             dish.save()
             .then((dish) => {
                 res.statusCode = 200;
