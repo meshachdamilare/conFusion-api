@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const Promos = require('../models/promotions');
 
 const promoRouter = express.Router();
@@ -21,11 +20,11 @@ promoRouter.route('/')
 
 .post((req, res, next)=>{
     Promos.create(req.body)
-    .then((promos) => {
-        console.log("Promo Created ", dish);
+    .then((promo) => {
+        console.log("Promo Created ", promo);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(promos)
+        res.json(promo)
     }, (err) => next(err))
     .catch((err) => next(err));
 })
@@ -55,10 +54,12 @@ promoRouter.route('/:promoId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
+
 .post((req, res, next)=>{
     res.statusCode = 403;
     res.end('POST operation not supported on /promotions/' + req.params.promoId);
 })
+
 .put((req, res, next)=>{
     Promos.findByIdAndUpdate(req.params.promoId, {
         $set: req.body
@@ -77,7 +78,7 @@ promoRouter.route('/:promoId')
     .then((resp) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(promo);
+        res.json(resp);
     }, (err) => next(err))
     .catch((err) => next(err));
 });
